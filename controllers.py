@@ -20,15 +20,6 @@ def auth_required(func):
             return redirect(url_for('main.login'))
     return inner
 
-def admin_required(func):
-    @wraps(func)
-    def inner(*args, **kwargs):
-        if 'user_id' not in session:
-            flash('Please login to continue')
-            return redirect(url_for('main.login'))
-        user = User.query.get(session['user_id'])
-        return func(*args, **kwargs)
-    return inner
 
 @main.route('/')
 def index():
@@ -99,3 +90,9 @@ def register():
 def logout():
     session.pop('user_id')
     return redirect(url_for('main.login'))
+
+@main.route('/dashboard', methods=['GET'])
+@auth_required
+def dashboard():
+    user = User.query.get(session['user_id'])
+    return render_template('dashboard.html', user=user)

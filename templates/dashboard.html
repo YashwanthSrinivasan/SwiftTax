@@ -1,11 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    dash
-</body>
-</html>
+{% extends 'layout.html' %}
+
+{% block title %}
+    Admin Dashboard
+{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' with context %}
+Dashboard
+<a href="/logout">Logout</a>
+{% endblock %}
+
+{% block style %}
+<style>
+    
+</style>
+{% endblock %}
