@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Admin Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="full">
+    <div class="div1">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="logo">
+        <h1 style="font-size: 50px;">Quiz Master</h1>
+        <h3>Test Your Knowledge, Challenge Your Mind!</h2>
+    </div>
+    <div class="div2">
+        <h1 style="margin-bottom: 20px;">Register</h1>
+        <form action="{{url_for('main.register')}}" class="form" method="post">
+            <div>
+                <h3>Username</h3>
+                <input type="text" name="username" required>
+            </div>
+            <div>
+                <h3>Password</h3>
+                <input type="password" name="password" required>
+            </div>
+            <div>
+                <h3>Confirm password</h3>
+                <input type="password" name="confirm_password" required>
+            </div>
+            <div>
+                <h3>Full Name</h3>
+                <input type="text" name="name">
+            </div>
+            <div>
+                <input type="submit" value="Register">
+            </div>
+        </form>
+        <div class="div3">
+            <p>Aldready a User <a href="/login">Sign in</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+</style>
+{% endblock %}
