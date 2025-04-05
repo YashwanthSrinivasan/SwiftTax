@@ -1,47 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense and Income Tracker</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Finance Tracker - {% block title %}{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    {% block styles %}{% endblock %}
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">Finance Tracker</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.expenses') }}">Expenses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.incomes') }}">Incomes</a>
-                    </li>
-                </ul>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">
+                <i class="fas fa-chart-line me-2"></i>Finance Tracker
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="{{ url_for('main.dashboard') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+                <a href="{{ url_for('main.expenses') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-money-bill-wave me-2"></i>Expenses
+                </a>
+                <a href="{{ url_for('main.incomes') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-hand-holding-usd me-2"></i>Incomes
+                </a>
+                <a href="{{ url_for('main.add_expense') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-plus-circle me-2"></i>Add Expense
+                </a>
+                <a href="{{ url_for('main.add_income') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-plus-circle me-2"></i>Add Income
+                </a>
             </div>
         </div>
-    </nav>
+        
+        {% block content %}
 
-    <div class="container mt-4">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        {% block content %}{% endblock %}
+        {% endblock %}
+        <!-- Page content wrapper -->
+        
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle sidebar
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.getElementById('wrapper').classList.toggle('toggled');
+        });
+        // Load chart data
+    fetch("{{ url_for('main.chart_data') }}")
+        .then(response => response.json())
+        .then(data => {
+            // Income vs Expenses Chart
+            const ctx = document.getElementById('incomeExpenseChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.months,
+                    datasets: [
+                        {
+                            label: 'Income',
+                            data: data.income,
+                            backgroundColor: 'rgba(28, 200, 138, 0.7)',
+                            borderColor: 'rgba(28, 200, 138, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Expenses',
+                            data: data.expenses,
+                            backgroundColor: 'rgba(231, 74, 59, 0.7)',
+                            borderColor: 'rgba(231, 74, 59, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    {% block scripts %}{% endblock %}
 </body>
+
 </html>

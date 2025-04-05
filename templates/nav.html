@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <button class="btn btn-sm" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.settings') }}">
+                                <i class="bi bi-gear"></i> Settings
+                            </a>
+                        </li>
+                        <form action="{{ url_for('main.logout') }}" method="POST">
+                            <button type="submit" class="btn btn-danger btn-sm mt-1">Logout</button>
+                        </form>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</nav>

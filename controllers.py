@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from models import db, User, Expense, Income
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
+from models import db, User, Expense, Income, Account
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from sqlalchemy.sql import func, cast
 from datetime import date, datetime, timedelta
 from uuid import uuid4
-import math
 
 main = Blueprint('main', __name__)
 
@@ -23,10 +23,6 @@ def auth_required(func):
 
 @main.route('/')
 def index():
-    if 'user_id' in session:
-        user = User.query.get(session['user_id'])
-        return render_template('index.html')
-        # return redirect(url_for('main.dashboard'))
     return render_template('home.html')
 
 
@@ -50,7 +46,14 @@ def login():
             return redirect(url_for('main.login'))
         
         session['user_id'] = user.id
-        return redirect(url_for('main.index'))
+
+        if user.first_login:
+            # Update the first_login status to False
+            user.first_login = False
+            db.session.commit()
+            return redirect(url_for('main.first_login'))  # Redirect to first login page
+        else:
+            return redirect(url_for('main.dashboard'))
 
     return render_template('login.html')
 
@@ -86,31 +89,109 @@ def register():
         flash('Registration successful! Please login.')
         return redirect(url_for('main.login'))
 
-@main.route('/logout')
+@main.route('/logout', methods=['POST'])  # Change to POST
 @auth_required
 def logout():
     session.pop('user_id')
     return redirect(url_for('main.login'))
 
+@main.route('/first_login', methods=['GET', 'POST'])
+@auth_required
+def first_login():
+    return render_template('first_login.html')
+
 @main.route('/dashboard', methods=['GET'])
 @auth_required
 def dashboard():
-    user = User.query.get(session['user_id'])
-    return render_template('dashboard.html', user=user)
+    account = Account.query.first()
+    
+    # Calculate totals for last 30 days
+    thirty_days_ago = datetime.utcnow().date() - timedelta(days=30)
+    
+    total_income = db.session.query(func.sum(Income.amount)).filter(
+        Income.date >= thirty_days_ago
+    ).scalar() or 0
+    
+    total_expenses = db.session.query(func.sum(Expense.amount)).filter(
+        Expense.date >= thirty_days_ago
+    ).scalar() or 0
+    
+    # Get recent transactions
+    recent_transactions = []
+    recent_incomes = Income.query.order_by(Income.date.desc()).limit(5).all()
+    recent_expenses = Expense.query.order_by(Expense.date.desc()).limit(5).all()
+    
+    for income in recent_incomes:
+        recent_transactions.append({
+            'type': 'income',
+            'date': income.date,
+            'description': income.description,
+            'amount': income.amount,
+            'category': income.category
+        })
+    
+    for expense in recent_expenses:
+        recent_transactions.append({
+            'type': 'expense',
+            'date': expense.date,
+            'description': expense.description,
+            'amount': expense.amount,
+            'category': expense.category
+        })
+    
+    # Sort by date
+    recent_transactions.sort(key=lambda x: x['date'], reverse=True)
+    
+    return render_template('dashboard.html', 
+                         account=account,
+                         total_income=total_income,
+                         total_expenses=total_expenses,
+                         recent_transactions=recent_transactions[:5])
 
+# Data for charts
+@main.route('/chart-data')
+def chart_data():
+    # Last 6 months data
+    months = []
+    income_data = []
+    expense_data = []
+    
+    for i in range(5, -1, -1):
+        month_start = (datetime.utcnow().replace(day=1) - timedelta(days=30*i)).date()
+        month_name = month_start.strftime('%b %Y')
+        months.append(month_name)
+        
+        month_end = (month_start + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+        
+        income = db.session.query(func.sum(Income.amount)).filter(
+            Income.date >= month_start,
+            Income.date <= month_end
+        ).scalar() or 0
+        
+        expense = db.session.query(func.sum(Expense.amount)).filter(
+            Expense.date >= month_start,
+            Expense.date <= month_end
+        ).scalar() or 0
+        
+        income_data.append(float(income))
+        expense_data.append(float(expense))
+    
+    return jsonify({
+        'months': months,
+        'income': income_data,
+        'expenses': expense_data
+    })
 
-
-# Expense Routes
+# Expense Routes (updated to update account balance)
 @main.route('/expenses')
-@auth_required
 def expenses():
     expenses = Expense.query.order_by(Expense.date.desc()).all()
     return render_template('expenses.html', expenses=expenses)
 
 @main.route('/add_expense', methods=['GET', 'POST'])
-@auth_required
 def add_expense():
     if request.method == 'POST':
+        account = Account.query.first()
         invoice_number = request.form['invoice_number']
         description = request.form['description']
         amount = float(request.form['amount'])
@@ -120,7 +201,6 @@ def add_expense():
         to_person = request.form['to_person']
         payment_method = request.form['payment_method']
         
-        # Check if invoice number already exists
         if Expense.query.filter_by(invoice_number=invoice_number).first():
             flash('Invoice number already exists!', 'danger')
             return redirect(url_for('main.add_expense'))
@@ -133,27 +213,28 @@ def add_expense():
             category=category,
             from_person=from_person,
             to_person=to_person,
-            payment_method=payment_method
+            payment_method=payment_method,
+            account_id=account.id
         )
         
         db.session.add(expense)
+        account.update_balance(amount)
         db.session.commit()
         flash('Expense added successfully!', 'success')
         return redirect(url_for('main.expenses'))
     
     return render_template('add_expense.html')
 
-# Income Routes
+# Income Routes (updated to update account balance)
 @main.route('/incomes')
-@auth_required
 def incomes():
     incomes = Income.query.order_by(Income.date.desc()).all()
     return render_template('incomes.html', incomes=incomes)
 
 @main.route('/add_income', methods=['GET', 'POST'])
-@auth_required
 def add_income():
     if request.method == 'POST':
+        account = Account.query.first()
         invoice_number = request.form['invoice_number']
         description = request.form['description']
         amount = float(request.form['amount'])
@@ -163,7 +244,6 @@ def add_income():
         to_person = request.form['to_person']
         payment_method = request.form['payment_method']
         
-        # Check if invoice number already exists
         if Income.query.filter_by(invoice_number=invoice_number).first():
             flash('Invoice number already exists!', 'danger')
             return redirect(url_for('main.add_income'))
@@ -176,12 +256,47 @@ def add_income():
             category=category,
             from_person=from_person,
             to_person=to_person,
-            payment_method=payment_method
+            payment_method=payment_method,
+            account_id=account.id
         )
         
         db.session.add(income)
+        account.update_balance(amount, is_income=True)
         db.session.commit()
         flash('Income added successfully!', 'success')
         return redirect(url_for('main.incomes'))
     
     return render_template('add_income.html')
+
+@main.route('/settings', methods=['GET', 'POST'])
+@auth_required
+def settings():
+    user = User.query.get(session['user_id'])
+    
+    if request.method == 'POST':
+        # Update name
+        user.name = request.form.get('name', user.name)
+        
+        # Password change logic
+        if request.form.get('current_password'):
+            current_password = request.form.get('current_password')
+            new_password = request.form.get('new_password')
+            confirm_password = request.form.get('confirm_password')
+            
+            if not check_password_hash(user.passhash, current_password):
+                flash('Current password is incorrect', 'danger')
+            elif new_password != confirm_password:
+                flash('New passwords do not match', 'danger')
+            else:
+                user.passhash = generate_password_hash(new_password)
+                flash('Password updated successfully', 'success')
+        
+        db.session.commit()
+        return redirect(url_for('main.settings'))
+    
+    return render_template('settings.html', user=user)
+
+@main.route('/gst_filing')
+@auth_required
+def gst_filing():
+    return render_template('gst_filing.html')
