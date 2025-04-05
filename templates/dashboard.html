@@ -125,7 +125,7 @@
                                             <td>{{ transaction.date.strftime('%m/%d') }}</td>
                                             <td>{{ transaction.description|truncate(20) }}</td>
                                             <td class="{{ 'text-success' if transaction.type == 'income' else 'text-danger' }}">
-                                                {{ '&#8377;%.2f'|format(transaction.amount) }}
+                                                &#8377;{{ '%.2f'|format(transaction.amount) }}
                                             </td>
                                         </tr>
                                         {% endfor %}
