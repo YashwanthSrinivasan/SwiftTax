@@ -10,13 +10,16 @@ body {
 .container-head h1 {
   font-size: 2.5em;
   font-weight: bold;
-  color: #3d3d3d;
+  color: #000000;
   margin-bottom: 10px;
 }
-.grey {
-  color: #3d3d3d;
+.black {
+  color: #000000;
+}
+.height {
+  height: 87vh;
 }
 
 input {
-    margin-left: 50px;
+  margin-left: 50px;
 }
