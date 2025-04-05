@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
-from models import db, User, Expense, Income, Account
+from models import db, User, Expense, Income, Account, PersonalInfo, BusinessInfo, FinancialInfo, TaxInfo
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
@@ -98,12 +98,85 @@ def logout():
 @main.route('/first_login', methods=['GET', 'POST'])
 @auth_required
 def first_login():
+    user = User.query.get(session['user_id'])
+    
+    if request.method == 'POST':
+        try:
+            # Personal Info
+            personal = PersonalInfo(
+                user_id=user.id,
+                full_name=request.form['full_name'],
+                dob=datetime.strptime(request.form['dob'], '%Y-%m-%d').date(),
+                pan_number=request.form['pan_number'],
+                aadhaar_number=request.form['aadhaar_number'],
+                email=request.form['email'],
+                mobile=request.form['mobile'],
+                residential_status=request.form['residential_status']
+            )
+            db.session.add(personal)
+            
+            # Business Info
+            business = BusinessInfo(
+                user_id=user.id,
+                business_name=request.form.get('business_name'),
+                business_type=request.form.get('business_type'),
+                msme_reg_number=request.form.get('msme_reg_number'),
+                udyam_registration=request.form.get('udyam_registration'),
+                industry_sector=request.form.get('industry_sector'),
+                state_of_operation=request.form.get('state_of_operation'),
+                business_address=request.form.get('business_address'),
+                nature_of_business=request.form.get('nature_of_business')
+            )
+            db.session.add(business)
+            
+            # Financial Info
+            financial = FinancialInfo(
+                user_id=user.id,
+                gross_revenue=float(request.form.get('gross_revenue', 0)),
+                net_profit=float(request.form.get('net_profit', 0)),
+                capital_invested=float(request.form.get('capital_invested', 0)),
+                projected_turnover=float(request.form.get('projected_turnover', 0)),
+                salaries_paid=float(request.form.get('salaries_paid', 0)),
+                exempt_income=float(request.form.get('exempt_income', 0)),
+                foreign_income=float(request.form.get('foreign_income', 0)),
+                tds_deducted=float(request.form.get('tds_deducted', 0)),
+                advance_tax_paid=float(request.form.get('advance_tax_paid', 0)),
+                bank_account_details=request.form.get('bank_account_details')
+            )
+            db.session.add(financial)
+            
+            # Tax Info
+            tax = TaxInfo(
+                user_id=user.id,
+                gst_registered='gst_registered' in request.form,
+                gstin_number=request.form.get('gstin_number'),
+                gst_registration_date=datetime.strptime(request.form['gst_registration_date'], '%Y-%m-%d').date() if request.form.get('gst_registration_date') else None,
+                composition_scheme='composition_scheme' in request.form,
+                tax_regime=request.form.get('tax_regime'),
+                filing_status=request.form.get('filing_status'),
+                previous_itr_type=request.form.get('previous_itr_type'),
+                previous_refund_dues=float(request.form.get('previous_refund_dues', 0))
+            )
+            db.session.add(tax)
+            
+            user.first_login = False
+            db.session.commit()
+            flash('Registration complete!', 'success')
+            return redirect(url_for('main.dashboard'))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error saving data: {str(e)}', 'danger')
+    
     return render_template('first_login.html')
+
+
 
 @main.route('/dashboard', methods=['GET'])
 @auth_required
 def dashboard():
     account = Account.query.first()
+    user_id = session['user_id']
     
     # Calculate totals for last 30 days
     thirty_days_ago = datetime.utcnow().date() - timedelta(days=30)
@@ -142,11 +215,24 @@ def dashboard():
     # Sort by date
     recent_transactions.sort(key=lambda x: x['date'], reverse=True)
     
-    return render_template('dashboard.html', 
-                         account=account,
-                         total_income=total_income,
-                         total_expenses=total_expenses,
-                         recent_transactions=recent_transactions[:5])
+    personal_info = PersonalInfo.query.filter_by(user_id=user_id).first()
+    business_info = BusinessInfo.query.filter_by(user_id=user_id).first()
+    financial_info = FinancialInfo.query.filter_by(user_id=user_id).first()
+    tax_info = TaxInfo.query.filter_by(user_id=user_id).first()
+
+    # Existing financial calculations
+    # ...
+
+    return render_template('dashboard.html',
+        personal_info=personal_info,
+        business_info=business_info,
+        financial_info=financial_info,
+        tax_info=tax_info,
+        # Existing variables
+        account=account,
+        total_income=total_income,
+        total_expenses=total_expenses,
+        recent_transactions=recent_transactions[:5])
 
 # Data for charts
 @main.route('/chart-data')
@@ -295,6 +381,73 @@ def settings():
         return redirect(url_for('main.settings'))
     
     return render_template('settings.html', user=user)
+
+@main.route('/edit_expense/<int:expense_id>', methods=['GET', 'POST'])
+@auth_required
+def edit_expense(expense_id):
+    expense = Expense.query.get_or_404(expense_id)
+    account = Account.query.first()
+    if request.method == 'POST':
+        # Update the expense details
+        old_amount= expense.amount
+        expense.description = request.form['description']
+        expense.amount = float(request.form['amount'])
+        expense.date = datetime.strptime(request.form['date'], '%Y-%m-%d').date()
+        expense.category = request.form['category']
+        account.update_balance(old_amount - expense.amount, is_income=True)
+        
+        db.session.commit()
+        flash('Expense updated successfully!', 'success')
+        return redirect(url_for('main.expenses'))
+
+    return render_template('edit_expense.html', expense=expense)
+
+@main.route('/delete_expense/<int:expense_id>', methods=['POST'])
+@auth_required
+def delete_expense(expense_id):
+    expense = Expense.query.get_or_404(expense_id)
+    # Update account balance when deleting an expense
+    account = Account.query.first()
+    account.update_balance(expense.amount, is_income=False)
+
+    db.session.delete(expense)
+    db.session.commit()
+    flash('Expense deleted successfully!', 'success')
+    return redirect(url_for('main.expenses'))
+
+@main.route('/edit_income/<int:income_id>', methods=['GET', 'POST'])
+@auth_required
+def edit_income(income_id):
+    income = Income.query.get_or_404(income_id)
+    account = Account.query.first()
+    if request.method == 'POST':
+        # Update the income details
+        old_amount = income.amount
+        income.description = request.form['description']
+        income.amount = float(request.form['amount'])
+        income.date = datetime.strptime(request.form['date'], '%Y-%m-%d').date()
+        income.category = request.form['category']
+        
+        account.update_balance(income.amount - old_amount, is_income=True)
+        db.session.commit()
+        flash('Income updated successfully!', 'success')
+        return redirect(url_for('main.incomes'))
+
+    return render_template('edit_income.html', income=income)
+
+@main.route('/delete_income/<int:income_id>', methods=['POST'])
+@auth_required
+def delete_income(income_id):
+    income = Income.query.get_or_404(income_id)
+
+    # Update account balance when deleting an income
+    account = Account.query.first()
+    account.update_balance(-income.amount, is_income=True)
+
+    db.session.delete(income)
+    db.session.commit()
+    flash('Income deleted successfully!', 'success')
+    return redirect(url_for('main.incomes'))
 
 @main.route('/gst_filing')
 @auth_required

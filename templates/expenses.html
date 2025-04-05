@@ -25,6 +25,7 @@
                 <th>From</th>
                 <th>To</th>
                 <th>Payment Method</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,15 @@
                 <td>{{ expense.from_person or '-' }}</td>
                 <td>{{ expense.to_person or '-' }}</td>
                 <td>{{ expense.payment_method }}</td>
+                <td>
+                    <!-- Edit Button -->
+                    <a href="{{ url_for('main.edit_expense', expense_id=expense.id) }}" class="btn btn-warning btn-sm">Edit</a>
+    
+                    <!-- Delete Button -->
+                    <form action="{{ url_for('main.delete_expense', expense_id=expense.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this expense?');">Delete</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

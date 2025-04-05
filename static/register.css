@@ -16,10 +16,9 @@ body {
 .black {
   color: #000000;
 }
-.height {
-  height: 87vh;
+.size {
+  font-size: 1em;
 }
-
 input {
   margin-left: 50px;
 }

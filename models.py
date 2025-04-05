@@ -59,7 +59,62 @@ class Income(db.Model):
 
     def __repr__(self):
         return f'<Income {self.invoice_number}>'
+
+
+class PersonalInfo(db.Model):
+    __tablename__ = 'personal_info'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True)
+    full_name = db.Column(db.String(100), nullable=False)
+    dob = db.Column(db.Date, nullable=False)
+    pan_number = db.Column(db.String(10), unique=True, nullable=False)
+    aadhaar_number = db.Column(db.String(12), unique=True, nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    mobile = db.Column(db.String(15), nullable=False)
+    residential_status = db.Column(db.String(50), nullable=False)
     
+class BusinessInfo(db.Model):
+    __tablename__ = 'business_info'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True)
+    business_name = db.Column(db.String(100))
+    business_type = db.Column(db.String(50))
+    msme_reg_number = db.Column(db.String(50))
+    udyam_registration = db.Column(db.String(50))
+    industry_sector = db.Column(db.String(50))
+    state_of_operation = db.Column(db.String(50))
+    business_address = db.Column(db.Text)
+    nature_of_business = db.Column(db.Text)
+
+class FinancialInfo(db.Model):
+    __tablename__ = 'financial_info'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True)
+    gross_revenue = db.Column(db.Float)
+    net_profit = db.Column(db.Float)
+    capital_invested = db.Column(db.Float)
+    projected_turnover = db.Column(db.Float)
+    salaries_paid = db.Column(db.Float)
+    exempt_income = db.Column(db.Float)
+    foreign_income = db.Column(db.Float)
+    tds_deducted = db.Column(db.Float)
+    advance_tax_paid = db.Column(db.Float)
+    bank_account_details = db.Column(db.Text)
+
+class TaxInfo(db.Model):
+    __tablename__ = 'tax_info'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True)
+    gst_registered = db.Column(db.Boolean, default=False)
+    gstin_number = db.Column(db.String(15))
+    gst_registration_date = db.Column(db.Date)
+    composition_scheme = db.Column(db.Boolean, default=False)
+    tax_regime = db.Column(db.String(20))
+    filing_status = db.Column(db.String(50))
+    previous_itr_type = db.Column(db.String(50))
+    previous_refund_dues = db.Column(db.Float)
+
+
 def init_db(app):
     db.init_app(app)
     with app.app_context():

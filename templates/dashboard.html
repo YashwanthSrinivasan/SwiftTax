@@ -135,6 +135,128 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <!-- Personal Info Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">Personal Information</h5>
+                            </div>
+                            <div class="card-body">
+                                {% if personal_info %}
+                                <dl class="row">
+                                    <dt class="col-sm-5">PAN Number</dt>
+                                    <dd class="col-sm-7">{{ personal_info.pan_number }}</dd>
+                                    
+                                    <dt class="col-sm-5">Aadhaar</dt>
+                                    <dd class="col-sm-7">{{ personal_info.aadhaar_number }}</dd>
+                                    
+                                    <dt class="col-sm-5">Residential Status</dt>
+                                    <dd class="col-sm-7">{{ personal_info.residential_status }}</dd>
+                                </dl>
+                                {% else %}
+                                <div class="alert alert-warning">Complete your profile setup</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Financial Overview Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">Financial Overview</h5>
+                            </div>
+                            <div class="card-body">
+                                {% if financial_info %}
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6 class="text-muted">Gross Revenue</h6>
+                                        <h4>₹{{ "{:,.2f}".format(financial_info.gross_revenue) }}</h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6 class="text-muted">Net Profit</h6>
+                                        <h4>₹{{ "{:,.2f}".format(financial_info.net_profit) }}</h4>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <h6 class="text-muted">Tax Efficiency</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" 
+                                            style="width: 65%">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Business Overview Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">Business Overview</h5>
+                            </div>
+                            <div class="card-body">
+                                {% if business_info %}
+                                <dl class="row">
+                                    <dt class="col-sm-5">Business Type</dt>
+                                    <dd class="col-sm-7">{{ business_info.business_type }}</dd>
+                                    
+                                    <dt class="col-sm-5">Industry Sector</dt>
+                                    <dd class="col-sm-7">{{ business_info.industry_sector }}</dd>
+                                    
+                                    <dt class="col-sm-5">MSME Registered</dt>
+                                    <dd class="col-sm-7">
+                                        {% if business_info.msme_reg_number %}
+                                        <span class="badge bg-success">Yes</span>
+                                        {% else %}
+                                        <span class="badge bg-secondary">No</span>
+                                        {% endif %}
+                                    </dd>
+                                </dl>
+                                {% else %}
+                                <div class="alert alert-warning">Update your business profile</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Tax Compliance Section -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header bg-warning">
+                                <h5 class="mb-0">Tax Compliance Status</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6>GST Status</h6>
+                                        <div class="alert {{ 'alert-success' if tax_info.gst_registered else 'alert-danger' }}">
+                                            {{ 'Registered' if tax_info.gst_registered else 'Not Registered' }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Tax Regime</h6>
+                                        <div class="alert alert-info">
+                                            {{ tax_info.tax_regime | default('Not Specified') }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Filing Status</h6>
+                                        <div class="alert alert-primary">
+                                            {{ tax_info.filing_status | default('Not Filed') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

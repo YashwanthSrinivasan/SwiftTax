@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Income</h2>
+
+    <!-- Form to Edit Income -->
+    <form method="POST">
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" name="description" id="description" class="form-control" value="{{ income.description }}" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" name="amount" id="amount" step="0.01" class="form-control" value="{{ income.amount }}" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" name="date" id="date" class="form-control" value="{{ income.date.strftime('%Y-%m-%d') }}" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" name="category" id="category" class="form-control" value="{{ income.category }}" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="from_person" class="form-label">From Person</label>
+            <input type="text" name="from_person" id="from_person" class="form-control" value="{{ income.from_person }}" />
+        </div>
+
+        <div class="mb-3">
+            <label for="to_person" class="form-label">To Person</label>
+            <input type="text" name="to_person" id="to_person" class="form-control" value="{{ income.to_person }}" />
+        </div>
+
+        <div class="mb-3">
+            <label for="payment_method" class="form-label">Payment Method</label>
+            <input type="text" name="payment_method" id="payment_method" class="form-control" value="{{ income.payment_method }}" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Income</button>
+    </form>
+</div>
+{% endblock %}
