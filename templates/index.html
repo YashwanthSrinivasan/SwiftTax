@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Expenses</h5>
+                <p class="card-text">Track your expenses with invoice details.</p>
+                <a href="{{ url_for('main.expenses') }}" class="btn btn-primary">View Expenses</a>
+                <a href="{{ url_for('main.add_expense') }}" class="btn btn-success">Add Expense</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Incomes</h5>
+                <p class="card-text">Track your incomes with invoice details.</p>
+                <a href="{{ url_for('main.incomes') }}" class="btn btn-primary">View Incomes</a>
+                <a href="{{ url_for('main.add_income') }}" class="btn btn-success">Add Income</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

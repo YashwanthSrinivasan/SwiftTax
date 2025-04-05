@@ -5,13 +5,73 @@
 {% endblock %}
 
 {% block content %}
-{% include 'navbar.html' with context %}
-Dashboard
-<a href="/logout">Logout</a>
+<div style="display: flex;">
+    <div class="d1">
+        <span class="sp1">SwiftTax</span>
+        <div class="el1">
+            Dashboard
+        </div>
+        <div class="el1">
+            Expenses
+        </div>
+        <div class="el1">
+            Invoices
+        </div>
+        <div class="el1">
+            GST Filing
+        </div>
+    </div>
+    <div>
+        <div class="nd1">
+            <div class="nd11">
+                <hr>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div>
+            g
+        </div>
+    </div>
+    
+</div>
 {% endblock %}
 
 {% block style %}
 <style>
-    
+.sp1{
+    font-family: "Texturina", serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 25px;
+}
+hr{
+    width: 1px;
+    height: 50px;
+    background-color: #000;
+    border: none;
+    margin: 0 20px;
+}
+.d1{
+    border: 2px solid black;
+    width: 15%;
+}
+.d2{
+    border: 2px solid black;
+}
+.nd1{
+    display: flex;
+    background-color: #efefef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.nd11{
+    display: flex;
+    margin-left: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
 </style>
 {% endblock %}

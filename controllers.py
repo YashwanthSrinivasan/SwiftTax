@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from models import db, User
+from models import db, User, Expense, Income
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from sqlalchemy.sql import func, cast
@@ -25,7 +25,8 @@ def auth_required(func):
 def index():
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
-        return redirect(url_for('main.dashboard'))
+        return render_template('index.html')
+        # return redirect(url_for('main.dashboard'))
     return render_template('home.html')
 
 
@@ -96,3 +97,91 @@ def logout():
 def dashboard():
     user = User.query.get(session['user_id'])
     return render_template('dashboard.html', user=user)
+
+
+
+# Expense Routes
+@main.route('/expenses')
+@auth_required
+def expenses():
+    expenses = Expense.query.order_by(Expense.date.desc()).all()
+    return render_template('expenses.html', expenses=expenses)
+
+@main.route('/add_expense', methods=['GET', 'POST'])
+@auth_required
+def add_expense():
+    if request.method == 'POST':
+        invoice_number = request.form['invoice_number']
+        description = request.form['description']
+        amount = float(request.form['amount'])
+        date = datetime.strptime(request.form['date'], '%Y-%m-%d').date()
+        category = request.form['category']
+        from_person = request.form['from_person']
+        to_person = request.form['to_person']
+        payment_method = request.form['payment_method']
+        
+        # Check if invoice number already exists
+        if Expense.query.filter_by(invoice_number=invoice_number).first():
+            flash('Invoice number already exists!', 'danger')
+            return redirect(url_for('main.add_expense'))
+        
+        expense = Expense(
+            invoice_number=invoice_number,
+            description=description,
+            amount=amount,
+            date=date,
+            category=category,
+            from_person=from_person,
+            to_person=to_person,
+            payment_method=payment_method
+        )
+        
+        db.session.add(expense)
+        db.session.commit()
+        flash('Expense added successfully!', 'success')
+        return redirect(url_for('main.expenses'))
+    
+    return render_template('add_expense.html')
+
+# Income Routes
+@main.route('/incomes')
+@auth_required
+def incomes():
+    incomes = Income.query.order_by(Income.date.desc()).all()
+    return render_template('incomes.html', incomes=incomes)
+
+@main.route('/add_income', methods=['GET', 'POST'])
+@auth_required
+def add_income():
+    if request.method == 'POST':
+        invoice_number = request.form['invoice_number']
+        description = request.form['description']
+        amount = float(request.form['amount'])
+        date = datetime.strptime(request.form['date'], '%Y-%m-%d').date()
+        category = request.form['category']
+        from_person = request.form['from_person']
+        to_person = request.form['to_person']
+        payment_method = request.form['payment_method']
+        
+        # Check if invoice number already exists
+        if Income.query.filter_by(invoice_number=invoice_number).first():
+            flash('Invoice number already exists!', 'danger')
+            return redirect(url_for('main.add_income'))
+        
+        income = Income(
+            invoice_number=invoice_number,
+            description=description,
+            amount=amount,
+            date=date,
+            category=category,
+            from_person=from_person,
+            to_person=to_person,
+            payment_method=payment_method
+        )
+        
+        db.session.add(income)
+        db.session.commit()
+        flash('Income added successfully!', 'success')
+        return redirect(url_for('main.incomes'))
+    
+    return render_template('add_income.html')

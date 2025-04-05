@@ -14,8 +14,29 @@
     {% block style %}
         
     {% endblock %}
+    <!-- Add these to your head section -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: {
+            500: '#4c51bf',
+            600: '#434190',
+          },
+        },
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
 </head>
 <body>
+    
     {% include 'messages.html' with context %}
     {% block content %}
         
@@ -28,6 +49,7 @@
 </html>
 <style>
     @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+    @import url('https://fonts.googleapis.com/css2?family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap');
     *{
         font-family: 'SF Pro Display', sans-serif;
     }

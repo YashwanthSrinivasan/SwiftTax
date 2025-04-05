@@ -1,34 +1,54 @@
 {% extends 'layout.html' %}
 
-{% block title %}
-    Admin Dashboard
-{% endblock %}
+{% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
-    <div class="full">
-        <div class="div2">
-            <h1 style="margin-bottom: 20px;">Login</h1>
-            <form action="{{url_for('main.login')}}" class="form" method="post">
-                <div>
-                    <h3>Username</h3>
-                    <input type="text" name="username" required>
-                </div>
-                <div>
-                    <h3>Password</h3>
-                    <input type="password" name="password" required>
-                </div>
-                <div>
-                    <input type="submit" value="Login">
-                </div>
-            </form>
-            <div class="div3">
-                <p>Not a user <a href="/register">Register</a></p>
+<div class="min-h-screen bg-gray-900 flex items-center justify-center p-5 bg-[url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop')] bg-cover bg-center">
+    <div class="w-full max-w-md bg-white/10 backdrop-blur-lg rounded-xl shadow-xl p-8 border border-white/10">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">Welcome Back</h1>
+            <p class="text-white/70">Sign in to your account</p>
+        </div>
+        
+        <form action="{{url_for('main.login')}}" method="post" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-white/80 mb-2">Username</label>
+                <input 
+                    type="text" 
+                    name="username" 
+                    required
+                    class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                    placeholder="Enter your username"
+                >
             </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-white/80 mb-2">Password</label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    required
+                    class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                    placeholder="••••••••"
+                >
+            </div>
+            
+            <div class="pt-2">
+                <button 
+                    type="submit" 
+                    class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-gray-900"
+                >
+                    Sign In
+                </button>
+            </div>
+        </form>
+        
+        <div class="mt-6 text-center text-sm text-white/60">
+            Don't have an account? 
+            <a href="/register" class="font-medium text-blue-400 hover:text-blue-300 transition-colors">
+                Register here
+            </a>
         </div>
     </div>
-{% endblock %}
-
-{% block style %}
-<style>
-</style>
+</div>
 {% endblock %}

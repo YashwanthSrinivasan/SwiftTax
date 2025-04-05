@@ -1,0 +1,16 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.alert {
+    margin-top: 20px;
+}
