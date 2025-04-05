@@ -1,104 +1,156 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} {% block title %}Admin Dashboard{% endblock %} {%
+block content %}
+<div
+  class="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center p-5"
+>
+  <div
+    class="w-full max-w-md bg-white/5 backdrop-blur-md rounded-xl shadow-2xl p-8 border border-white/10"
+  >
+    <!-- Branding Section -->
+    <div class="text-center mb-8"></div>
 
-{% block title %}Admin Dashboard{% endblock %}
-
-{% block content %}
-<div class="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center p-5">
-    <div class="w-full max-w-md bg-white/5 backdrop-blur-md rounded-xl shadow-2xl p-8 border border-white/10">
-        <!-- Branding Section -->
-        <div class="text-center mb-8">
-
+    <!-- Registration Form -->
+    <form action="{{url_for('main.register')}}" method="post" class="space-y-5">
+      <div>
+        <label class="block text-sm font-medium text-blue-200 mb-2"
+          >Username</label
+        >
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+          >
+            <svg
+              class="h-5 w-5 text-blue-300"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <input
+            type="text"
+            name="username"
+            required
+            class="w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-all"
+            placeholder="username"
+          />
         </div>
-        
-        <!-- Registration Form -->
-        <form action="{{url_for('main.register')}}" method="post" class="space-y-5">
-            <div>
-                <label class="block text-sm font-medium text-blue-200 mb-2">Username</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <input 
-                        type="text" 
-                        name="username" 
-                        required
-                        class="w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-all"
-                        placeholder="username"
-                    >
-                </div>
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-blue-200 mb-2">Password</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <input 
-                        type="password" 
-                        name="password" 
-                        required
-                        class="w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-all"
-                        placeholder="••••••••"
-                    >
-                </div>
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-blue-200 mb-2">Confirm Password</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <input 
-                        type="password" 
-                        name="confirm_password" 
-                        required
-                        class="w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-all"
-                        placeholder="••••••••"
-                    >
-                </div>
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-blue-200 mb-2">Full Name</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 012 0v1.323l3.954-1.582 1.599.8a1 1 0 01-.894 1.788l-1.233-.616-1.738 5.42a1 1 0 01-.285 1.05 3.989 3.989 0 01-2.647 1.03 3.989 3.989 0 01-2.647-1.03 1 1 0 01-.285-1.05l-1.738-5.42-1.233.616a1 1 0 01-.894-1.788l1.599-.8L9 4.323V3a1 1 0 012 0v1h-.5z" />
-                        </svg>
-                    </div>
-                    <input 
-                        type="text" 
-                        name="name"
-                        class="w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-all"
-                        placeholder="Your full name"
-                    >
-                </div>
-            </div>
-            
-            <div class="pt-3">
-                <button 
-                    type="submit" 
-                    class="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg transition-all hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-2 focus:ring-offset-blue-900/50"
-                >
-                    Register
-                </button>
-            </div>
-        </form>
-        
-        <div class="mt-6 text-center text-sm text-blue-300/80">
-            Already have an account? 
-            <a href="/login" class="font-medium text-blue-300 hover:text-white transition-colors">
-                Sign in
-            </a>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-blue-200 mb-2"
+          >Password</label
+        >
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+          >
+            <svg
+              class="h-5 w-5 text-blue-300"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <input
+            type="password"
+            name="password"
+            required
+            class="w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-all"
+            placeholder="••••••••"
+          />
         </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-blue-200 mb-2"
+          >Confirm Password</label
+        >
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+          >
+            <svg
+              class="h-5 w-5 text-blue-300"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <input
+            type="password"
+            name="confirm_password"
+            required
+            class="w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-all"
+            placeholder="••••••••"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-blue-200 mb-2"
+          >Full Name</label
+        >
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+          >
+            <svg
+              class="h-5 w-5 text-blue-300"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 012 0v1.323l3.954-1.582 1.599.8a1 1 0 01-.894 1.788l-1.233-.616-1.738 5.42a1 1 0 01-.285 1.05 3.989 3.989 0 01-2.647 1.03 3.989 3.989 0 01-2.647-1.03 1 1 0 01-.285-1.05l-1.738-5.42-1.233.616a1 1 0 01-.894-1.788l1.599-.8L9 4.323V3a1 1 0 012 0v1h-.5z"
+              />
+            </svg>
+          </div>
+          <input
+            type="text"
+            name="name"
+            class="w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-all"
+            placeholder="Your full name"
+          />
+        </div>
+      </div>
+
+      <div class="pt-3">
+        <button
+          type="submit"
+          class="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg transition-all hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-2 focus:ring-offset-blue-900/50"
+        >
+          Register
+        </button>
+      </div>
+    </form>
+
+    <div class="mt-6 text-center text-sm text-blue-300/80">
+      Already have an account?
+      <a
+        href="/login"
+        class="font-medium text-blue-300 hover:text-white transition-colors"
+      >
+        Sign in
+      </a>
     </div>
+  </div>
 </div>
 {% endblock %}
