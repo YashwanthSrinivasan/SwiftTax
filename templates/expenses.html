@@ -1,35 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Expenses</h2>
-<a href="{{ url_for('main.add_expense') }}" class="btn btn-success mb-3">Add New Expense</a>
+<div id="page-content-wrapper">
+    {% include 'nav.html' %}
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Expenses</h1>
+        </div>
+    
+    <a href="{{ url_for('main.add_expense') }}" class="btn btn-success mb-3">Add New Expense</a>
 
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th>Invoice #</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Payment Method</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for expense in expenses %}
-        <tr>
-            <td>{{ expense.invoice_number }}</td>
-            <td>{{ expense.date.strftime('%Y-%m-%d') }}</td>
-            <td>{{ expense.description }}</td>
-            <td>${{ "%.2f"|format(expense.amount) }}</td>
-            <td>{{ expense.category }}</td>
-            <td>{{ expense.from_person or '-' }}</td>
-            <td>{{ expense.to_person or '-' }}</td>
-            <td>{{ expense.payment_method }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Invoice #</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Payment Method</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.invoice_number }}</td>
+                <td>{{ expense.date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ expense.description }}</td>
+                <td>&#8377;{{ "%.2f"|format(expense.amount) }}</td>
+                <td>{{ expense.category }}</td>
+                <td>{{ expense.from_person or '-' }}</td>
+                <td>{{ expense.to_person or '-' }}</td>
+                <td>{{ expense.payment_method }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
 {% endblock %}

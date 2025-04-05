@@ -3,232 +3,318 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Suite of Financial Tools and Tax Filing system for MSME’s | SwiftTax
-    </title>
-
-    <link rel="stylesheet" href="../static/home.css" />
-
+    <title>Suite of Financial Tools and Tax Filing system for MSME's | SwiftTax</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="../static/assets/favicon.ico" type="image/x-icon" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                500: '#4F46E5',
+                600: '#4338CA',
+              },
+              secondary: {
+                500: '#10B981',
+                600: '#059669',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body>
-    <div class="home-intro">
-      <div class="filter">
-        <div class="top-bar">
-          <div class="logo">
-            <h1 onclick="location.href='';" style="cursor: pointer">
-              SwiftTax
-            </h1>
+  <body class="font-sans antialiased text-gray-900">
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-br from-primary-500 to-primary-600 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+          <!-- Navigation -->
+          <nav class="relative pt-6 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="flex items-center">
+              <h1 class="text-2xl font-bold text-white cursor-pointer" onclick="location.href=''">SwiftTax</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+              <a href="#" class="text-sm font-medium text-white hover:text-gray-200">Features</a>
+              <a href="#" class="text-sm font-medium text-white hover:text-gray-200">Pricing</a>
+              <a href="#" class="text-sm font-medium text-white hover:text-gray-200">Resources</a>
+              <a href="/login" class="text-sm font-medium text-primary-600 bg-white px-4 py-2 rounded-md hover:bg-gray-100">Sign In</a>
+            </div>
+          </nav>
+
+          <!-- Hero Content -->
+          <div class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+            <div class="sm:text-center lg:text-left">
+              <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                <span class="block">Financial Tools</span>
+                <span class="block text-indigo-200">Made Simple</span>
+              </h1>
+              <p class="mt-3 text-base text-indigo-100 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                Your one-stop solution for all your financial needs. We provide a comprehensive suite of tools and services to help you manage your finances, file taxes, and grow your business.
+              </p>
+              <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                <div class="rounded-md shadow">
+                  <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                    Get Started
+                  </a>
+                </div>
+                <div class="mt-3 sm:mt-0 sm:ml-3">
+                  <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-500 bg-opacity-60 hover:bg-opacity-70 md:py-4 md:text-lg md:px-10">
+                    Live Demo
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="sign-in">
-            <p onclick="location.href='login';" style="cursor: pointer">
-              Sign In
+        </div>
+      </div>
+      <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+        <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="../static/assets/temp.png" alt="Dashboard preview">
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:text-center">
+          <h2 class="text-base text-primary-600 font-semibold tracking-wide uppercase">Features</h2>
+          <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            Everything you need to manage your finances
+          </p>
+          <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+            Explore our suite of financial tools and services designed for MSMEs.
+          </p>
+        </div>
+
+        <div class="mt-10">
+          <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Feature 1 -->
+            <div class="pt-6">
+              <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
+                <div class="-mt-6">
+                  <div>
+                    <span class="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                      <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Accept payments</h3>
+                  <p class="mt-5 text-base text-gray-500">
+                    Accept payments via credit card, debit card, or direct debit. Boost on-time payments and save time chasing payments.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="pt-6">
+              <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
+                <div class="-mt-6">
+                  <div>
+                    <span class="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                      <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Online invoicing</h3>
+                  <p class="mt-5 text-base text-gray-500">
+                    Efficiently manage your invoices and get paid faster with our automated invoicing system.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="pt-6">
+              <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
+                <div class="-mt-6">
+                  <div>
+                    <span class="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                      <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Track expenses</h3>
+                  <p class="mt-5 text-base text-gray-500">
+                    Keep track of all your expenses in one place and gain insights into your spending habits.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="pt-6">
+              <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
+                <div class="-mt-6">
+                  <div>
+                    <span class="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                      <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Pay bills</h3>
+                  <p class="mt-5 text-base text-gray-500">
+                    Easily manage and pay your bills on time to avoid late fees and penalties.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="pt-6">
+              <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
+                <div class="-mt-6">
+                  <div>
+                    <span class="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                      <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Sales tax</h3>
+                  <p class="mt-5 text-base text-gray-500">
+                    Calculate and manage sales tax effortlessly to ensure compliance with local regulations.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="pt-6">
+              <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
+                <div class="-mt-6">
+                  <div>
+                    <span class="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                      <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Analytics</h3>
+                  <p class="mt-5 text-base text-gray-500">
+                    Gain insights into your financial data with our powerful analytics tools to make informed decisions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-gray-50">
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <span class="block">Ready to dive in?</span>
+          <span class="block text-primary-600">Start your free trial today.</span>
+        </h2>
+        <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+          <div class="inline-flex rounded-md shadow">
+            <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700">
+              Get started
+            </a>
+          </div>
+          <div class="ml-3 inline-flex rounded-md shadow">
+            <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-gray-50">
+              Learn more
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+        <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div class="col-span-2">
+            <h3 class="text-2xl font-bold text-white">SwiftTax</h3>
+            <p class="mt-4 text-gray-300">
+              SwiftTax is a comprehensive suite of financial tools and services designed to help you manage your finances, file taxes, and grow your business.
+            </p>
+            <div class="mt-4 flex space-x-6">
+              <a href="#" class="text-gray-400 hover:text-white">
+                <span class="sr-only">Facebook</span>
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <span class="sr-only">Twitter</span>
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <span class="sr-only">Instagram</span>
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <span class="sr-only">LinkedIn</span>
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Office</h3>
+            <div class="mt-4 space-y-4">
+              <p class="text-base text-gray-400">ITPL Road</p>
+              <p class="text-base text-gray-400">Whitefield, Bangalore</p>
+              <p class="text-base text-gray-400">Karnataka, PIN 560066, India</p>
+              <p class="text-base text-gray-400">customercare@swifttax.com</p>
+              <p class="text-base text-gray-400">+91 - 8556212658</p>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Links</h3>
+            <div class="mt-4 space-y-4">
+              <a href="#" class="text-base text-gray-400 hover:text-white block">Home</a>
+              <a href="#" class="text-base text-gray-400 hover:text-white block">Services</a>
+              <a href="#" class="text-base text-gray-400 hover:text-white block">About Us</a>
+              <a href="#" class="text-base text-gray-400 hover:text-white block">Features</a>
+              <a href="#" class="text-base text-gray-400 hover:text-white block">Contacts</a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Newsletter</h3>
+            <div class="mt-4">
+              <form class="flex">
+                <input type="email" placeholder="Enter your email" class="px-4 py-2 w-full rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary-500">
+                <button type="submit" class="bg-primary-500 text-white px-4 py-2 rounded-r-md hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
+          <p class="text-base text-gray-400 text-center md:text-left">
+            &copy; 2025 SwiftTax. All rights reserved.
+          </p>
+          <div class="mt-8 md:mt-0">
+            <p class="text-base text-gray-400 text-center md:text-left">
+              <a href="#" class="hover:text-white">Privacy Policy</a> · <a href="#" class="hover:text-white">Terms of Service</a>
             </p>
           </div>
         </div>
-        <div class="intro">
-          <div class="intro-text">
-            <h1>Welcome to SwiftTax</h1>
-            <p>
-              Your one-stop solution for all your financial needs. We provide a
-              comprehensive suite of tools and services to help you manage your
-              finances, file taxes, and grow your business.
-            </p>
-            <!-- Add more points -->
-            <button class="btn1" onclick="location.href='';">
-              Get Started
-            </button>
-          </div>
-          <div class="intro-image">
-            <img src="../static/assets/temp.png" alt="Intro Image" />
-            <!-- Add image -->
-          </div>
-        </div>
       </div>
-    </div>
-    <div class="features">
-      <div class="features-header">
-        <h1>Features</h1>
-        <p>Explore our suite of financial tools and services.</p>
-      </div>
-      <div class="features-list">
-        <div class="feature-item">
-          <img src="../static/assets/feature-1.jpg" alt="Feature 1" />
-          <h2>Accept payments</h2>
-          <p>
-            Accept payments via credit card, debit card, or direct debit.Boost
-            on-time payments and save time chasing payments.
-          </p>
-        </div>
-        <div class="feature-item">
-          <img src="../static/assets/feature-2.jpg" alt="Feature 2" />
-          <h2>Online invoicing</h2>
-          <p>Efficiently manage your invoices and get paid faster.</p>
-        </div>
-        <div class="feature-item">
-          <img src="../static/assets/feature-3.png" alt="Feature 3" />
-          <h2>Track expenses</h2>
-          <p>
-            Keep track of all your expenses in one place and gain insights into
-            your spending habits.
-          </p>
-        </div>
-        <div class="feature-item">
-          <img src="../static/assets/feature-4.png" alt="Feature 4" />
-          <h2>Pay bills</h2>
-          <p>
-            Easily manage and pay your bills on time to avoid late fees and
-            penalties.
-          </p>
-        </div>
-        <div class="feature-item">
-          <img src="../static/assets/feature-5.png" alt="Feature 5" />
-          <h2>Sales tax</h2>
-          <p>
-            Calculate and manage sales tax effortlessly to ensure compliance
-            with local regulations.
-          </p>
-        </div>
-        <div class="feature-item">
-          <img src="../static/assets/feature-6.png" alt="Feature 6" />
-          <h2>Analytics</h2>
-          <p>
-            Gain insights into your financial data with our powerful analytics
-            tools to make informed decisions.
-          </p>
-        </div>
-        <div class="feature-item">
-          <img src="../static/assets/feature-7.png" alt="Feature 7" />
-          <h2>Accounting dashboard</h2>
-          <p>
-            Manage your finances with our intuitive accounting dashboard that
-            provides a clear overview of your financial health.
-          </p>
-        </div>
-        <!-- Add more features as needed -->
-      </div>
-    </div>
-    <div class="getting-started">
-      <div class="getting-started-header">
-        <h1>Getting Started</h1>
-        <p>Sign up for SwiftTax and start managing your finances today!</p>
-      </div>
-      <div class="btn2" onclick="location.href='';">
-        <p>Get Started</p>
-      </div>
-    </div>
-    <div class="footer">
-      <!--Change all content-->
-      <div class="footer-row">
-        <div class="footer-col">
-          <div class="footer-logo">
-            <h1>
-              SwiftTax
-            </h1>
-          </div>
-          <div class="footer-text">
-            <p>
-              SwiftTax is a comprehensive suite of financial tools and services
-              designed to help you manage your finances, file taxes, and grow
-              your business.
-            </p>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h3>
-            Office
-            <div class="underline"><span></span></div>
-          </h3>
-          <p>ITPL Road</p>
-          <p>Whitefield, Banglore</p>
-          <p>Karnataka, PIN 560066, India</p>
-          <p class="email-id">customercare@showpass.com</p>
-          <h4>+91 - 8556212658</h4>
-        </div>
-        <div class="footer-col">
-          <h3>
-            Links
-            <div class="underline"><span></span></div>
-          </h3>
-          <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">Services</a></li>
-            <li><a href="">About Us</a></li>
-            <li><a href="">Features</a></li>
-            <li><a href="">Contacts</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3>
-            Newsletter
-            <div class="underline"><span></span></div>
-          </h3>
-          <form>
-            <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M3 8C3 7.06812 3 6.60218 3.15224 6.23463C3.35523 5.74458 3.74458 5.35523 4.23463 5.15224C4.60218 5 5.06812 5 6 5V5H18V5C18.9319 5 19.3978 5 19.7654 5.15224C20.2554 5.35523 20.6448 5.74458 20.8478 6.23463C21 6.60218 21 7.06812 21 8V16C21 16.9319 21 17.3978 20.8478 17.7654C20.6448 18.2554 20.2554 18.6448 19.7654 18.8478C19.3978 19 18.9319 19 18 19V19H6V19C5.06812 19 4.60218 19 4.23463 18.8478C3.74458 18.6448 3.35523 18.2554 3.15224 17.7654C3 17.3978 3 16.9319 3 16V8Z"
-                stroke="#3d3d3d"
-                stroke-width="2"
-              ></path>
-              <path
-                d="M4 6L10.683 11.8476C11.437 12.5074 12.563 12.5074 13.317 11.8476L20 6"
-                stroke="#3d3d3d"
-                stroke-width="2"
-              ></path>
-            </svg>
-            <input type="email" placeholder="Enter your Email ID" />
-            <svg viewBox="0 0 32 32" width="40px" height="40px">
-              <line
-                fill="none"
-                stroke="#3d3d3d"
-                stroke-width="2"
-                x1="26"
-                y1="16"
-                x2="4"
-                y2="16"
-              ></line>
-              <polyline
-                fill="none"
-                stroke="#3d3d3d"
-                stroke-width="2"
-                points="18,7.5 26.5,16 18,24.5"
-              ></polyline>
-            </svg>
-          </form>
-          <div class="social-icons">
-            <svg viewBox="-4.8 -4.8 41.60 41.60">
-              <rect x="-4.8" y="-4.8" rx="20.8"></rect>
-              <path
-                d="M5,19.5c0-4.6,2.3-9.4,5-9.4c1.5,0,2.7,0.9,4.6,3.6c-1.8,2.8-2.9,4.5-2.9,4.5c-2.4,3.8-3.2,4.6-4.5,4.6 C5.9,22.9,5,21.7,5,19.5 M20.7,17.8L19,15c-0.4-0.7-0.9-1.4-1.3-2c1.5-2.3,2.7-3.5,4.2-3.5c3,0,5.4,4.5,5.4,10.1 c0,2.1-0.7,3.3-2.1,3.3S23.3,22,20.7,17.8 M16.4,11c-2.2-2.9-4.1-4-6.3-4C5.5,7,2,13.1,2,19.5c0,4,1.9,6.5,5.1,6.5 c2.3,0,3.9-1.1,6.9-6.3c0,0,1.2-2.2,2.1-3.7c0.3,0.5,0.6,1,0.9,1.6l1.4,2.4c2.7,4.6,4.2,6.1,6.9,6.1c3.1,0,4.8-2.6,4.8-6.7 C30,12.6,26.4,7,22.1,7C19.8,7,18,8.8,16.4,11"
-              ></path>
-            </svg>
-            <svg viewBox="-1.6 -1.6 35.20 35.20">
-              <rect x="-1.6" y="-1.6" rx="17.6"></rect>
-              <path
-                d="M11.919 24.94c-2.548 0-4.921-.747-6.919-2.032a9.049 9.049 0 0 0 6.681-1.867 4.512 4.512 0 0 1-4.215-3.137c.276.054.559.082.848.082.412 0 .812-.056 1.193-.156a4.519 4.519 0 0 1-3.622-4.425v-.059a4.478 4.478 0 0 0 2.042.564 4.507 4.507 0 0 1-2.008-3.758c0-.824.225-1.602.612-2.268a12.811 12.811 0 0 0 9.303 4.715 4.517 4.517 0 0 1 7.692-4.115 9.107 9.107 0 0 0 2.866-1.094 4.542 4.542 0 0 1-1.983 2.498 9.08 9.08 0 0 0 2.592-.71 9.283 9.283 0 0 1-2.252 2.337c.008.193.014.388.014.583-.001 5.962-4.542 12.843-12.844 12.842"
-              ></path>
-            </svg>
-            <svg viewBox="-2.4 -2.4 28.80 28.80">
-              <rect x="-2.4" y="-2.4" rx="14.4"></rect>
-              <path
-                d="M17.6 6.31999C16.8669 5.58141 15.9943 4.99596 15.033 4.59767C14.0716 4.19938 13.0406 3.99622 12 3.99999C10.6089 4.00135 9.24248 4.36819 8.03771 5.06377C6.83294 5.75935 5.83208 6.75926 5.13534 7.96335C4.4386 9.16745 4.07046 10.5335 4.06776 11.9246C4.06507 13.3158 4.42793 14.6832 5.12 15.89L4 20L8.2 18.9C9.35975 19.5452 10.6629 19.8891 11.99 19.9C14.0997 19.9001 16.124 19.0668 17.6222 17.5816C19.1205 16.0965 19.9715 14.0796 19.99 11.97C19.983 10.9173 19.7682 9.87634 19.3581 8.9068C18.948 7.93725 18.3505 7.05819 17.6 6.31999ZM12 18.53C10.8177 18.5308 9.65701 18.213 8.64 17.61L8.4 17.46L5.91 18.12L6.57 15.69L6.41 15.44C5.55925 14.0667 5.24174 12.429 5.51762 10.8372C5.7935 9.24545 6.64361 7.81015 7.9069 6.80322C9.1702 5.79628 10.7589 5.28765 12.3721 5.37368C13.9853 5.4597 15.511 6.13441 16.66 7.26999C17.916 8.49818 18.635 10.1735 18.66 11.93C18.6442 13.6859 17.9355 15.3645 16.6882 16.6006C15.441 17.8366 13.756 18.5301 12 18.53ZM15.61 13.59C15.41 13.49 14.44 13.01 14.26 12.95C14.08 12.89 13.94 12.85 13.81 13.05C13.6144 13.3181 13.404 13.5751 13.18 13.82C13.07 13.96 12.95 13.97 12.75 13.82C11.6097 13.3694 10.6597 12.5394 10.06 11.47C9.85 11.12 10.26 11.14 10.64 10.39C10.6681 10.3359 10.6827 10.2759 10.6827 10.215C10.6827 10.1541 10.6681 10.0941 10.64 10.04C10.64 9.93999 10.19 8.95999 10.03 8.56999C9.87 8.17999 9.71 8.23999 9.58 8.22999H9.19C9.08895 8.23154 8.9894 8.25465 8.898 8.29776C8.8066 8.34087 8.72546 8.403 8.66 8.47999C8.43562 8.69817 8.26061 8.96191 8.14676 9.25343C8.03291 9.54495 7.98287 9.85749 8 10.17C8.0627 10.9181 8.34443 11.6311 8.81 12.22C9.6622 13.4958 10.8301 14.5293 12.2 15.22C12.9185 15.6394 13.7535 15.8148 14.58 15.72C14.8552 15.6654 15.1159 15.5535 15.345 15.3915C15.5742 15.2296 15.7667 15.0212 15.91 14.78C16.0428 14.4856 16.0846 14.1583 16.03 13.84C15.94 13.74 15.81 13.69 15.61 13.59Z"
-              ></path>
-            </svg>
-            <svg viewBox="-23.27 -23.27 139.60 139.60">
-              <rect x="-23.27" y="-23.27" rx="69.8"></rect>
-              <path
-                d="M11.185,0.08C5.004,0.08,0.001,5.092,0,11.259c0,6.173,5.003,11.184,11.186,11.184c6.166,0,11.176-5.011,11.176-11.184 C22.362,5.091,17.351,0.08,11.185,0.08z"
-              ></path>
-              <rect x="1.538" y="30.926" width="19.287" height="62.054"></rect>
-              <path
-                d="M69.925,29.383c-9.382,0-15.673,5.144-18.248,10.022h-0.258v-8.479H32.921H32.92v62.053h19.27V62.281 c0-8.093,1.541-15.932,11.575-15.932c9.89,0,10.022,9.256,10.022,16.451v30.178H93.06V58.942 C93.06,42.235,89.455,29.383,69.925,29.383z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <p class="copyright">&copy; 2025 SwiftTax. All rights reserved.</p>
-    </div>
+    </footer>
   </body>
 </html>
