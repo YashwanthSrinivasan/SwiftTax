@@ -4,14 +4,14 @@
 {% endblock %} {% block content %}
 <div class="min-h-screen flex items-center justify-center">
   <div
-    class="w-full max-w-md bg-white/50 rounded-xl shadow-xl p-8 border border-white/10"
+    class="w-full max-w-md bg-white/50 rounded-xl shadow-xl p-8 border border-white/10 height"
   >
     <div class="container-head">
       <h1>Welcome To SwiftTax</h1>
-      <p class="grey">Create your new account</p>
+      <p class="black">Create your new account</p>
     </div>
     <form action="{{url_for('main.register')}}" method="post" class="space-y-5">
-      <div class="grey">
+      <div class="black">
         <label class="block text-sm font-medium mb-2">Username</label>
         <div class="relative">
           <div
@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <div class="grey">
+      <div class="black">
         <label class="block text-sm font-medium mb-2">Password</label>
         <div class="relative">
           <div
@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <div class="grey">
+      <div class="black">
         <label class="block text-sm font-medium mb-2">Confirm Password</label>
         <div class="relative">
           <div
@@ -98,7 +98,7 @@
         </div>
       </div>
 
-      <div class="grey">
+      <div class="black">
         <label class="block text-sm font-medium mb-2">Full Name</label>
         <div class="relative">
           <div
