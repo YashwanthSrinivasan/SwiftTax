@@ -1,0 +1,31 @@
+<<<<<<< HEAD
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtual environment folders
+env/
+venv/
+
+# Secrets
+.env
+
+# OS junk
+.DS_Store
+Thumbs.db
+=======
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtual environment folders
+env/
+venv/
+
+# Secrets
+.env
+
+# OS junk
+.DS_Store
+Thumbs.db
+>>>>>>> 29090bc67e3782e526907ac57e26ebffe1ef76f7

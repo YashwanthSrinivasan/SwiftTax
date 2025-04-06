@@ -1,0 +1,10 @@
+faiss-cpu
+numpy
+sentence-transformers==2.2.2
+transformers==4.30.2
+torch==2.0.1
+google-generativeai
+gradio==3.50.2
+python-dotenv
+huggingface_hub==0.16.4
+pydantic==1.10.12
