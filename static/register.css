@@ -1,7 +1,6 @@
 body {
   background-image: url("../static/assets/sign-in-bg.webp");
   background-size: cover;
-  height: 100vh;
 }
 
 .container-head {
@@ -15,9 +14,6 @@ body {
 }
 .black {
   color: #000000;
-}
-.size {
-  font-size: 1em;
 }
 input {
   margin-left: 50px;

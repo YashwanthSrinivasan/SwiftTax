@@ -1,7 +1,6 @@
 body {
   background-image: url("../static/assets/sign-in-bg.webp");
   background-size: cover;
-  height: 100vh;
 }
 
 .container-head {
